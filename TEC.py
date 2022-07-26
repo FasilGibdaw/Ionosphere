@@ -1,12 +1,10 @@
-# to calculate the total electron content (TEC) from electron density of IRI-2016
-# package pyglow is needed (https://github.com/timduly4/pyglow)
-# Fasil Tesema, July 2022
 from pyglow.pyglow import Point
 from datetime import datetime
 from multiprocessing import Pool
 import datetime as dt
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 # t1=_np.append(t_list,t_list2);t1=t1[32:-41];
 
 
@@ -18,7 +16,13 @@ def main():
     delta_sec = delta.days * 24 * 60 * 60 + delta.seconds
     time = [dt1 + dt.timedelta(0, t) for t in range(0, delta_sec, time_step)]
     tec = TEC(dt1, dt2, time_step=time_step)
-    plt.plot(time, tec)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.plot(time, tec)
+    locator = mdates.AutoDateLocator(minticks=4, maxticks=10)
+    formatter = mdates.ConciseDateFormatter(locator)
+    ax.xaxis.set_major_locator(locator)
+    ax.xaxis.set_major_formatter(formatter)
     plt.show()
 
 
