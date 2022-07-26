@@ -1,3 +1,6 @@
+# to calculate the total electron content (TEC) from electron density of IRI-2016
+# package pyglow is needed (https://github.com/timduly4/pyglow)
+# Fasil Tesema, July 2022
 from pyglow.pyglow import Point
 from datetime import datetime
 from multiprocessing import Pool
