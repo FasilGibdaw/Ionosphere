@@ -5,6 +5,7 @@ import datetime as dt
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from itertools import repeat
 # t1=_np.append(t_list,t_list2);t1=t1[32:-41];
 
 
@@ -15,7 +16,7 @@ def main():
     delta = dt2 - dt1
     delta_sec = delta.days * 24 * 60 * 60 + delta.seconds
     time = [dt1 + dt.timedelta(0, t) for t in range(0, delta_sec, time_step)]
-    tec = TEC(dt1, dt2, time_step=time_step)
+    tec = TEC(dt1, dt2, 11.6, 37.4, time_step=time_step)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.plot(time, tec)
@@ -26,11 +27,11 @@ def main():
     plt.show()
 
 
-def TEC_alt(dn):
+def TEC_alt(dn, lat, lon):
     ne2 = []
     alt = np.arange(60, 1000, 10)
     for j in range(len(alt)):
-        pt = Point(dn, 11.6, 37.4, alt[j])
+        pt = Point(dn, lat, lon, alt[j])
         pt.run_iri(version=2016)
         ne1 = pt.ne
         ne2 = np.append(ne2, ne1)
@@ -40,7 +41,7 @@ def TEC_alt(dn):
     return tec
 
 
-def TEC(dt1, dt2, time_step=60):
+def TEC(dt1, dt2, lat, lon, time_step=60):
 
     #dt1 = dt.datetime(2010, 4, 1)
     #dt2 = dt.datetime(2010, 4, 1, 23, 59, 59)
@@ -54,7 +55,7 @@ def TEC(dt1, dt2, time_step=60):
     with Pool() as pool:
         # result=pool.map(func=TEC_alt,iterable=res)
         # result=pool.map(partial(prep_atVSC, cellid=cellid), files)
-        result = pool.starmap(TEC_alt, zip(res))
+        result = pool.starmap(TEC_alt, zip(res, repeat(lat), repeat(lon)))
     return result
 
 
