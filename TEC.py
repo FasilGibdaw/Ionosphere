@@ -37,7 +37,7 @@ def TEC_alt(dn, lat, lon):
         ne2 = np.append(ne2, ne1)
     # here ne is in cm^-3, and TEC unit is 1e16/m^2,
     # the factor 10 is due to the change in height (alt step) in the integration, see the alt definition above
-    tec = np.sum(ne2)*10*1e5*1e-12
+    tec = np.sum(ne2)*10*1e5*1e-12  # putting tec in TEC units
     return tec
 
 
