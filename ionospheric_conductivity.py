@@ -9,7 +9,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 import igrf
-from iri2016.base import IRI
+import iri2016
 import msise00
 import warnings
 warnings.filterwarnings("ignore")
@@ -21,7 +21,7 @@ q = 1.6021765e-19  # charge of the ion or it can be charge of an electron if it 
 dn = datetime(2012, 4, 2, 10, 0)
 lon = 37.36  # longitude in degrees (here for Bahir Dar)
 lat = 11.6  # latitude in degrees (here for Bahir Dar)
-x = IRI(dn, [60, 995, 5], lat, lon)
+x = iri2016.IRI(dn, [60, 995, 5], lat, lon)
 alt = x.alt_km.data  # the altitude range to be calculated in km
 note = open('conductivity_trial' + '.txt', 'w')
 note.write(

@@ -1,3 +1,4 @@
+# calculate the TEC by integrating electron density from IRI-2016
 from pyglow.pyglow import Point
 from datetime import datetime
 from multiprocessing import Pool
