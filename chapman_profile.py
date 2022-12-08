@@ -18,7 +18,7 @@ for i in range(len(x)):
         c[i, j] = np.exp(-z[j]+1)*np.exp(-(1/np.cos(x[i])*np.exp(-z[j])))
 for i in range(len(x)):
     plt.plot(c[i, :], z, label=str(int(np.rad2deg(x[i]).round()))+r'$^{o}$')
-    plt.legend()
+    plt.legend(frameon=False)
 plt.grid()
 plt.xlim([0, 1])
 plt.ylim([-2, 6])
