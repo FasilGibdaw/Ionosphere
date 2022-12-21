@@ -21,7 +21,7 @@ def moving_avg(data, window_size):  # moving average
 
 
 ####
-# data downlaoded from https://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_since_1932.txt
+# data downloaded from https://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_since_1932.txt
 df = pd.read_table(
     './Kp_ap_Ap_SN_F107_since_1932.txt', header=39, sep='\s+')
 time = [datetime.datetime(y, m, d) for y, m, d in zip(
