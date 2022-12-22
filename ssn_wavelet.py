@@ -54,10 +54,11 @@ period = 1. / frequencies
 levels = [0.01, 0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8]
 fig, ax = plt.subplots(2, 1, constrained_layout=True, figsize=(8, 6))
 
-ax[0].plot(time, sst)
-ax[0].plot(time, moving_avg(sst, 50))
+ax[0].plot(time, sst, label='Yearly SSN')
+ax[0].plot(time, moving_avg(sst, 50), label='100 years periodic variation')
 ax[0].set_xlim([1700, 2021])
-ax[0].set_ylabel('SSN')
+ax[0].set_ylabel('Sunspot number (SSN)')
+ax[0].legend(frameon=False)
 s = ax[1].contourf(time, np.log2(period), np.log10(power), levels=100,
                    extend='both')
 
