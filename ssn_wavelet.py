@@ -1,8 +1,28 @@
 import numpy as np
 import pywt
 import matplotlib.pyplot as plt
-import random
 import pycwt as cwlet
+
+
+#####
+
+def moving_avg(data, window_size):  # moving average
+    nbackward = window_size//2
+    if (window_size % 2) == 0:
+        nforward = nbackward-1
+    else:
+        nforward = nbackward
+    length = len(data)
+    data_avg = np.zeros(data.shape)
+    for i in range(length):
+        lo = max([0, i-nbackward])
+        hi = min(length, i+nforward)
+        data_avg[i] = np.mean(data[lo:hi])
+    return data_avg
+
+
+####
+
 #url = 'http://paos.colorado.edu/research/wavelets/wave_idl/nino3sst.txt'
 #sst = np.genfromtxt(url, skip_header=19)
 ssn = np.loadtxt('./SN_y_tot_V2.0.txt')
@@ -35,6 +55,7 @@ levels = [0.01, 0.0625, 0.125, 0.25, 0.5, 1, 2, 4, 8]
 fig, ax = plt.subplots(2, 1, constrained_layout=True, figsize=(8, 6))
 
 ax[0].plot(time, sst)
+ax[0].plot(time, moving_avg(sst, 50))
 ax[0].set_xlim([1700, 2021])
 ax[0].set_ylabel('SSN')
 s = ax[1].contourf(time, np.log2(period), np.log10(power), levels=100,
@@ -51,9 +72,7 @@ ax[1].invert_yaxis()
 ylim = ax[1].get_ylim()
 ax[1].set_xlabel('Time (years)')
 # plt.colorbar(s)
-cycle = 11*np.ones(sst.shape)
-# ax[1].plot(time,np.log2(coi))
-ax[1].plot(time, np.log2(cycle), '--k', alpha=0.5)
+ax[1].axhline(np.log2(11), ls='--', color='k', alpha=0.5)  # 11 year cycle plot
 ax[1].set_ylim(ylim[0], 0)
 # plt.tight_layout()
 plt.savefig('SunSpotNumber.pdf')
