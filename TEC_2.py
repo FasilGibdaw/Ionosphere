@@ -27,6 +27,7 @@ def main():
     formatter = mdates.ConciseDateFormatter(locator)
     ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(formatter)
+    ax.set_ylabel('TEC (TECu)')
     # plt.grid()
     plt.show()
 
