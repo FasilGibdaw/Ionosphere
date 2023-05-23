@@ -22,9 +22,6 @@ def moving_avg(data, window_size):  # moving average
 
 
 ####
-
-#url = 'http://paos.colorado.edu/research/wavelets/wave_idl/nino3sst.txt'
-#sst = np.genfromtxt(url, skip_header=19)
 ssn = np.loadtxt('./SN_y_tot_V2.0.txt')
 sst = ssn[:, 1]
 t0 = 1700
