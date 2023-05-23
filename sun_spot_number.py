@@ -21,16 +21,14 @@ def moving_avg(data, window_size):  # moving average
         data_avg[i] = np.mean(data[lo:hi])
     return data_avg
 
+# downloading the data from the gfz-postdam webpage 
 file = 'https://kp.gfz-potsdam.de/app/files/Kp_ap_Ap_SN_F107_since_1932.txt'
 fname = file.split('/')[-1]
-file_time = os.path.getmtime('./'+fname)
-day_of_file = datetime.datetime.fromtimestamp(file_time).day
-if ~(os.path.isfile('./'+fname)) & ~(day_of_file == datetime.datetime.now().day):
-    r = requests.get(file, allow_redirects=True)
-    open(fname, 'wb').write(r.content)
+r = requests.get(file, allow_redirects=True)
+open(fname, 'wb').write(r.content)
     
 ####
-# data downloaded from https://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_since_1932.txt
+
 df = pd.read_table(
     './Kp_ap_Ap_SN_F107_since_1932.txt', header=39, sep='\s+')
 time = [datetime.datetime(y, m, d) for y, m, d in zip(
