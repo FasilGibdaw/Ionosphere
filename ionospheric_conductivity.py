@@ -45,7 +45,7 @@ for j in range(len(alt)):
     # colliion coefficient for ion-neutral collision (density in m^-3) (somewhere)
     nu_in = 4.34e-16*N2+4.28e-16*O2+2.44e-16*O
     # colliion coefficient for electron-neutral collision
-    nu_en = 5.4e-16*n_n*np.sqrt(Te)  # colliion coefficient for electrons
+    nu_en = 5.4e-16*n_n*np.sqrt(Te)  # collision coefficient for electrons
     # if you want add electron ion collision (see kelly book) n is changed back to cm^-3 unit
     # colliion coefficient for electron-ion collision
     kappa_i = q*B/(Mi*nu_in)
@@ -78,15 +78,17 @@ ax[1].semilogx(data[:, 4], data[:, 0], label='Ki')
 ax[1].legend(frameon=False)
 ax[1].set_ylim([80, 250])
 ax[1].set_ylabel('Altitude (km)')
-ax[1].set_title(dn.strftime("%m/%d/%Y, %H:%M:%S") + ' at BahirDar')
+ax[1].set_xlabel('Ratio of gyro to collision frequency')
+ax[1].set_title(dn.strftime("%m/%d/%Y, %H:%M:%S") + ' at ' +
+                str(lat) + '$^\circ N$, ' + str(lon) + '$^\circ E$')
 ax[2].semilogx(data[:, 6], data[:, 0], label=r'$\nu_{in}$')
 ax[2].semilogx(data[:, 7], data[:, 0], label=r'$\nu_{en}$')
 ax[2].semilogx(data[:, 8], data[:, 0], label=r'$\Omega_{e}$')
 ax[2].semilogx(data[:, 9], data[:, 0], label=r'$\Omega_{i}$')
 ax[2].legend(frameon=False)
-ax[2].set_xlabel('Frequency (Hz)')
+ax[2].set_xlabel('Collision frequency (Hz)')
 ax[2].set_ylabel('Altitude (km)')
 ax[2].set_ylim([80, 250])
 plt.tight_layout()
+plt.savefig('conductivity_plot.png', dpi=800)
 plt.show()
-# plt.savefig('conductivity_cal.pdf')
