@@ -9,3 +9,5 @@
 
 ## Horizontal wind model 2014 (hwm14)
 day of the year (118) and disturbance index (35) see https://fluids.readthedocs.io/fluids.atmosphere.html#rfc3966d4cedd-1 for details 
+
+![alt text](https://github.com/FasilGibdaw/Ionosphere/blob/main/hwm_model_figure.png)
