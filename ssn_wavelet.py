@@ -36,7 +36,7 @@ time = np.arange(0, N) * dt + t0
 
 # Taken from http://nicolasfauchereau.github.io/climatecode/posts/wavelet-analysis-in-python/
 wavelet = 'cmor1.5-1.0'
-#wavelet = 'cgau8'
+# wavelet = 'cgau8'
 
 scales = np.arange(1, 128)
 
@@ -73,4 +73,4 @@ ax[1].set_xlabel('Time (years)')
 ax[1].axhline(np.log2(11), ls='--', color='k', alpha=0.5)  # 11 year cycle plot
 ax[1].set_ylim(ylim[0], 0)
 # plt.tight_layout()
-plt.savefig('SunSpotNumber.pdf')
+plt.savefig('SunSpotNumber.png', dpi=800)
