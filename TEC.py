@@ -1,5 +1,5 @@
 # calculate the TEC by integrating electron density from IRI-2016
-from pyglow.pyglow import Point
+# using the package IRI2016: https://github.com/space-physics/iri2016
 from datetime import datetime
 from multiprocessing import Pool
 import datetime as dt
@@ -7,6 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from itertools import repeat
+import iri2016
+
 # t1=_np.append(t_list,t_list2);t1=t1[32:-41];
 
 
@@ -25,21 +27,15 @@ def main():
     formatter = mdates.ConciseDateFormatter(locator)
     ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(formatter)
+    ax.set_ylabel('TEC (TECu)')
+    # plt.grid()
     plt.show()
 
 
 def TEC_alt(dn, lat, lon):
-    ne2 = []
-    alt = np.arange(60, 1000, 10)
-    for j in range(len(alt)):
-        pt = Point(dn, lat, lon, alt[j])
-        pt.run_iri(version=2016)
-        ne1 = pt.ne
-        ne2 = np.append(ne2, ne1)
-    # here ne is in cm^-3, and TEC unit is 1e16/m^2,
-    # the factor 10 is due to the change in height (alt step) in the integration, see the alt definition above
-    tec = np.sum(ne2)*10*1e5*1e-12  # putting tec in TEC units
-    return tec
+    x = iri2016.IRI(dn, [60, 1000, 5], lat, lon)
+    x.ne.values[x.ne.values < 0] = np.nan
+    return np.nansum(x.ne.values)*5000*1e-16
 
 
 def TEC(dt1, dt2, lat, lon, time_step=60):
