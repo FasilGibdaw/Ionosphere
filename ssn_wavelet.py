@@ -1,7 +1,7 @@
 import numpy as np
-import pywt
+import pywt  # https://pywavelets.readthedocs.io/en/latest/
 import matplotlib.pyplot as plt
-import pycwt as cwlet
+import pycwt as cwlet  # https://pycwt.readthedocs.io/en/latest/
 
 
 #####
