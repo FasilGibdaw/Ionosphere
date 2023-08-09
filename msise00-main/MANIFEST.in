@@ -1,2 +1,0 @@
-graft src/msise00/fortran
-include src/msise00/CMakeLists.txt
